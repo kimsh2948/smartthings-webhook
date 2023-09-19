@@ -32,6 +32,7 @@ const smartapp = new SmartApp()
 
 server.get('/', (req, res, next) => {
    console.log('In');
+   res.json({ message: 'Hello, welcome to the website!' });
 })
 
 server.post('/', (req, res, next) => {
