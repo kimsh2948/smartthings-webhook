@@ -13,7 +13,7 @@ const clientSecret = '5738a2fa-a3e9-4531-8aa9-4615fa5db637';
 const redirectUri = 'https://port-0-smartthings-webhook-2rrqq2blmqxv7cr.sel5.cloudtype.app/oauth/callback'; // 콜백 URL
 
 // 스마트싱스 OAuth 2.0 인증 엔드포인트 및 토큰 엔드포인트
-const authorizationUrl = 'https://graph.api.smartthings.com/oauth/authorize';
+const authorizationUrl = 'https://api.smartthings.com/oauth/authorize';
 const tokenUrl = 'https://auth-global.api.smartthings.com/oauth/token';
 
 // 사용자의 스마트싱스 계정으로 로그인하는 페이지
@@ -22,7 +22,7 @@ router.get('/login', (req, res) => {
     client_id: clientId,
     redirect_uri: redirectUri,
     response_type: 'code',
-    scope: 'app',
+    scope: 'r:locations:* r:devices:* w:devices:* r:scenes:* x:locations:* x:scenes:* r:hubs:* w:devices:$ w:rules:* r:rules:* w:locations:* x:devices:* r:installedapps w:installedapps x:devices:$ r:devices:$',
   };
   const authUrl = `${authorizationUrl}?${new URLSearchParams(authParams)}`;
   console.log(authUrl);
