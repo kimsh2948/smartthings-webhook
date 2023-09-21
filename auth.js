@@ -1,15 +1,14 @@
 const axios = require('axios');
 const express = require('express');
-const app = express();
 const router = express.Router();
 
 // 스마트앱 정보
 const clientId = '737638b7-2007-4550-8242-b95ea570c125';
 const clientSecret = '74ac395f-cb14-4390-afe0-2c3fd0a0dff1';
-const redirectUri = 'http://localhost:3000/callback'; // 콜백 URL
+const redirectUri = 'https://https://port-0-smartthings-webhook-2rrqq2blmqxv7cr.sel5.cloudtype.app/auth/callback'; // 콜백 URL
 
 // 스마트싱스 OAuth 2.0 인증 엔드포인트 및 토큰 엔드포인트
-const authorizationUrl = 'https://auth-global.api.smartthings.com/oauth/authorize';
+const authorizationUrl = 'https://auth-global.api.smartthings.com';
 const tokenUrl = 'https://auth-global.api.smartthings.com/oauth/token';
 
 // 사용자의 스마트싱스 계정으로 로그인하는 페이지
