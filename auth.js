@@ -45,7 +45,11 @@ router.get('/callback', async (req, res) => {
     };
 
     try {
-    const tokenResponse = await axios.post(tokenUrl, new URLSearchParams(tokenParams));
+    const tokenResponse = await axios.post(tokenUrl, tokenParams, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).catch(err => console.log(err));
     const accessToken = tokenResponse.data.access_token;
     res.send(`Access Token: ${accessToken}`);
     } catch (error) {
