@@ -32,7 +32,7 @@ const smartapp = new SmartApp()
             })
     });
 
-server.use('/auth', authRouter);
+server.use('/oauth', authRouter);
 
 server.get('/', (req, res, next) => {
    console.log('In');
