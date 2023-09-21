@@ -14,7 +14,7 @@ const redirectUri = 'https://port-0-smartthings-webhook-2rrqq2blmqxv7cr.sel5.clo
 
 // 스마트싱스 OAuth 2.0 인증 엔드포인트 및 토큰 엔드포인트
 const authorizationUrl = 'https://api.smartthings.com/oauth/authorize';
-const tokenUrl = 'https://api.smartthings.com/oauth/token';
+const tokenUrl = 'https://auth-global.api.smartthings.com/oauth/token';
 
 // 사용자의 스마트싱스 계정으로 로그인하는 페이지
 router.get('/login', (req, res) => {
@@ -35,29 +35,11 @@ router.get('/callback', async (req, res) => {
 
     // 인증 코드를 사용하여 액세스 토큰을 요청
     const tokenParams = {
-    grant_type: 'authorization_code',
-    client_id: clientId,
-    client_secret: clientSecret,
-    redirect_uri: redirectUri,
-    code: code,
-    scope: [
-      "r:devices:$",
-      "r:devices:*",
-      "r:hubs:*",
-      "r:installedapps",
-      "r:locations:*",
-      "r:rules:*",
-      "r:scenes:*",
-      "w:devices:$",
-      "w:devices:*",
-      "w:installedapps",
-      "w:locations:*",
-      "w:rules:*",
-      "x:devices:$",
-      "x:devices:*",
-      "x:locations:*",
-      "x:scenes:*"
-  ],
+      grant_type: 'authorization_code',
+      client_id: clientId,
+      client_secret: clientSecret,
+      redirect_uri: redirectUri,
+      code: code,
     };
 
     try {
@@ -76,3 +58,21 @@ router.get('/callback', async (req, res) => {
 
 module.exports = router;
 
+// scope: [
+//   "r:devices:$",
+//   "r:devices:*",
+//   "r:hubs:*",
+//   "r:installedapps",
+//   "r:locations:*",
+//   "r:rules:*",
+//   "r:scenes:*",
+//   "w:devices:$",
+//   "w:devices:*",
+//   "w:installedapps",
+//   "w:locations:*",
+//   "w:rules:*",
+//   "x:devices:$",
+//   "x:devices:*",
+//   "x:locations:*",
+//   "x:scenes:*"
+// ]
