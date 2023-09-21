@@ -10,6 +10,8 @@ const SmartApp = require('@smartthings/smartapp');
 const server = express();
 const PORT = 8080;
 
+const authRouter = require('./auth');
+
 server.use(express.json());
 
 const smartapp = new SmartApp()
@@ -29,6 +31,8 @@ const smartapp = new SmartApp()
 
             })
     });
+
+server.use('/auth', authRouter);
 
 server.get('/', (req, res, next) => {
    console.log('In');
