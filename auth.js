@@ -32,6 +32,7 @@ router.get('/login', (req, res) => {
 // 스마트싱스에서 리디렉션하고 인증 코드를 수신하는 콜백 핸들러
 router.get('/callback', async (req, res) => {
     console.log('callback');
+    console.log(req.query);
     const code = req.query.code;
 
     // 인증 코드를 사용하여 액세스 토큰을 요청
@@ -54,3 +55,4 @@ router.get('/callback', async (req, res) => {
 });
 
 module.exports = router;
+
