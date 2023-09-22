@@ -14,7 +14,7 @@ const redirectUri = 'https://port-0-smartthings-webhook-2rrqq2blmqxv7cr.sel5.clo
 
 // 스마트싱스 OAuth 2.0 인증 엔드포인트 및 토큰 엔드포인트
 const authorizationUrl = 'https://api.smartthings.com/oauth/authorize';
-const tokenUrl = 'https://api.smartthings.com/oauth/token';
+const tokenUrl = 'https://graph.api.smartthings.com/oauth/token';
 
 const deviceScope = 'r:locations:* r:devices:* w:devices:* r:scenes:* x:locations:* x:scenes:* r:hubs:* w:devices:$ w:rules:* r:rules:* w:locations:* x:devices:* r:installedapps w:installedapps x:devices:$ r:devices:$';
 
@@ -47,18 +47,18 @@ router.get('/callback', async (req, res) => {
     };
     res.send(tokenParams);
 
-    // try {
-    // const tokenResponse = await axios.post(tokenUrl, tokenParams, {
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   }
-    // })
-    // const accessToken = tokenResponse.data.access_token;
-    // res.send(`Access Token: ${accessToken}`);
-    // } catch (error) {
-    // console.error('Error getting access token:', error);
-    // res.status(500).send('Error getting access token');
-    // }
+    try {
+    const tokenResponse = await axios.post(tokenUrl, tokenParams, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    const accessToken = tokenResponse.data.access_token;
+    res.send(`Access Token: ${accessToken}`);
+    } catch (error) {
+    console.error('Error getting access token:', error);
+    res.status(500).send('Error getting access token');
+    }
 });
 
 module.exports = router;
