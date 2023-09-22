@@ -2,13 +2,13 @@ const axios = require('axios');
 const express = require('express');
 const router = express.Router();
 
-// 스마트앱 정보
-const clientId = '737638b7-2007-4550-8242-b95ea570c125';
-const clientSecret = '74ac395f-cb14-4390-afe0-2c3fd0a0dff1';
+// // 스마트앱 정보
+// const clientId = '737638b7-2007-4550-8242-b95ea570c125';
+// const clientSecret = '74ac395f-cb14-4390-afe0-2c3fd0a0dff1';
 
-// // cli id
-// const clientId = '0620ce9a-fe0b-4922-84b3-a0f2e1a9225a';
-// const clientSecret = '5738a2fa-a3e9-4531-8aa9-4615fa5db637';
+// cli id
+const clientId = '0620ce9a-fe0b-4922-84b3-a0f2e1a9225a';
+const clientSecret = '5738a2fa-a3e9-4531-8aa9-4615fa5db637';
 
 const redirectUri = 'https://port-0-smartthings-webhook-2rrqq2blmqxv7cr.sel5.cloudtype.app/oauth/callback'; // 콜백 URL
 
@@ -22,7 +22,6 @@ router.get('/login', (req, res) => {
     client_id: clientId,
     redirect_uri: redirectUri,
     response_type: 'code',
-    scope: 'r:devices:$,r:devices:*,r:hubs:*,r:installedapps,r:locations:*,r:rules:*,r:scenes:*,w:devices:$,w:devices:*,w:installedapps,w:locations:*,w:rules:*,x:devices:$,x:devices:*,x:locations:*,x:scenes:*'
   };
   const authUrl = `${authorizationUrl}?${new URLSearchParams(authParams)}`;
   console.log(authUrl);
