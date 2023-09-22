@@ -22,6 +22,7 @@ router.get('/login', (req, res) => {
     client_id: clientId,
     redirect_uri: redirectUri,
     response_type: 'code',
+    scope: 'r:devices:$,r:devices:*,r:hubs:*,r:installedapps,r:locations:*,r:rules:*,r:scenes:*,w:devices:$,w:devices:*,w:installedapps,w:locations:*,w:rules:*,x:devices:$,x:devices:*,x:locations:*,x:scenes:*'
   };
   const authUrl = `${authorizationUrl}?${new URLSearchParams(authParams)}`;
   console.log(authUrl);
@@ -40,7 +41,7 @@ router.get('/callback', async (req, res) => {
     client_secret: clientSecret,
     redirect_uri: redirectUri,
     code: code,
-    scope: 'app'
+    scope: 'r:devices:$,r:devices:*,r:hubs:*,r:installedapps,r:locations:*,r:rules:*,r:scenes:*,w:devices:$,w:devices:*,w:installedapps,w:locations:*,w:rules:*,x:devices:$,x:devices:*,x:locations:*,x:scenes:*'
     };
 
     try {
