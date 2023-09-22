@@ -22,7 +22,6 @@ router.get('/login', (req, res) => {
     client_id: clientId,
     redirect_uri: redirectUri,
     response_type: 'code',
-    scope: 'r:locations:* r:devices:* w:devices:* r:scenes:* x:locations:* x:scenes:* r:hubs:* w:devices:$ w:rules:* r:rules:* w:locations:* x:devices:* r:installedapps w:installedapps x:devices:$ r:devices:$',
   };
   const authUrl = `${authorizationUrl}?${new URLSearchParams(authParams)}`;
   console.log(authUrl);
@@ -31,7 +30,6 @@ router.get('/login', (req, res) => {
 
 // 스마트싱스에서 리디렉션하고 인증 코드를 수신하는 콜백 핸들러
 router.get('/callback', async (req, res) => {
-    console.log('callback');
     console.log(req.query);
     const code = req.query.code;
 
@@ -41,8 +39,7 @@ router.get('/callback', async (req, res) => {
     client_id: clientId,
     client_secret: clientSecret,
     redirect_uri: redirectUri,
-    code: code,
-    scope: 'app',
+    code: code
     };
 
     try {
