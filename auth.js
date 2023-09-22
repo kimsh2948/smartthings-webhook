@@ -45,19 +45,20 @@ router.get('/callback', async (req, res) => {
       code: code,
       scope: deviceScope
     };
+    res.send(tokenParams);
 
-    try {
-    const tokenResponse = await axios.post(tokenUrl, tokenParams, {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    const accessToken = tokenResponse.data.access_token;
-    res.send(`Access Token: ${accessToken}`);
-    } catch (error) {
-    console.error('Error getting access token:', error);
-    res.status(500).send('Error getting access token');
-    }
+    // try {
+    // const tokenResponse = await axios.post(tokenUrl, tokenParams, {
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   }
+    // })
+    // const accessToken = tokenResponse.data.access_token;
+    // res.send(`Access Token: ${accessToken}`);
+    // } catch (error) {
+    // console.error('Error getting access token:', error);
+    // res.status(500).send('Error getting access token');
+    // }
 });
 
 module.exports = router;
