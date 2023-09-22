@@ -39,11 +39,12 @@ router.get('/callback', async (req, res) => {
     client_id: clientId,
     client_secret: clientSecret,
     redirect_uri: redirectUri,
-    code: code
+    code: code,
+    scope: 'app'
     };
 
     try {
-    const tokenResponse = await axios.post(tokenUrl, tokenParams, {
+    const tokenResponse = await axios.post(`${tokenUrl}?${new URLSearchParams(tokenParams)}`, tokenParams, {
       headers: {
         'Content-Type': 'application/json'
       }
