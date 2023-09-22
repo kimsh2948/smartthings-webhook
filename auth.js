@@ -45,7 +45,6 @@ router.get('/callback', async (req, res) => {
       code: code,
       scope: deviceScope
     };
-    res.send(tokenParams);
 
     try {
     const tokenResponse = await axios.post(tokenUrl, tokenParams, {
