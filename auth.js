@@ -40,7 +40,7 @@ router.get('/callback', async (req, res) => {
     client_secret: clientSecret,
     redirect_uri: redirectUri,
     code: code,
-    scope: 'r:devices:$,r:devices:*,r:hubs:*,r:installedapps,r:locations:*,r:rules:*,r:scenes:*,w:devices:$,w:devices:*,w:installedapps,w:locations:*,w:rules:*,x:devices:$,x:devices:*,x:locations:*,x:scenes:*'
+    scope: 'app'
     };
 
     try {
