@@ -24,7 +24,7 @@ router.get('/login', (req, res) => {
     client_id: clientId,
     client_secret: clientSecret,
     redirect_uri: redirectUri,
-    response_type: 'code'
+    response_type: 'code',
   };
   const authUrl = `${authorizationUrl}?${new URLSearchParams(authParams)}`;
   console.log(authUrl);
