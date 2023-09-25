@@ -49,11 +49,15 @@ router.get('/callback', async (req, res) => {
     };
 
     try {
-      const tokenResponse = await axios.post(`${tokenUrl}?${new URLSearchParams(tokenParams)}`, tokenParams, {
+      const tokenResponse = await axios.post(tokenUrl, tokenParams, {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
-      }).catch(err => {
+      })
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(err => {
         console.log(err.message);
       })
       const accessToken = tokenResponse.data.access_token;
