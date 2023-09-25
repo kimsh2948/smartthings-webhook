@@ -1,7 +1,6 @@
 const axios = require('axios');
 const express = require('express');
 const router = express.Router();
-const { generateRandomState, saveState, getState } = require('./state');
 
 // // 스마트앱 정보
 // const clientId = '737638b7-2007-4550-8242-b95ea570c125';
@@ -15,7 +14,7 @@ const redirectUri = 'https://port-0-smartthings-webhook-2rrqq2blmqxv7cr.sel5.clo
 
 // 스마트싱스 OAuth 2.0 인증 엔드포인트 및 토큰 엔드포인트
 const authorizationUrl = 'https://api.smartthings.com/oauth/authorize';
-const tokenUrl = 'https://auth-global.api.smartthings.com/oauth/token';
+const tokenUrl = 'https://graph.api.smartthings.com/oauth/token';
 
 const deviceScope = 'r:locations:* r:devices:* w:devices:* r:scenes:* x:locations:* x:scenes:* r:hubs:* w:devices:$ w:rules:* r:rules:* w:locations:* x:devices:* r:installedapps w:installedapps x:devices:$ r:devices:$';
 
@@ -45,8 +44,7 @@ router.get('/callback', async (req, res) => {
       client_id: clientId,
       client_secret: clientSecret,
       redirect_uri: redirectUri,
-      code: code,
-      state: state
+      code: code
     };
 
     try {
@@ -55,20 +53,8 @@ router.get('/callback', async (req, res) => {
           'Content-Type': 'application/json'
         }
       })
-      // 토큰을 성공적으로 받았을 때 "state" 값을 확인
-      const receivedState = req.query.state;
-      console.log(req.query);
-      console.log(receivedState);
-      console.log(getState());
-      if (getState()[receivedState]) {
-        // "state" 값이 유효하면 토큰을 반환
-        const accessToken = tokenResponse.data.access_token;
-        res.send(tokenResponse.data);
-      } else {
-        // "state" 값이 유효하지 않으면 에러 처리
-        console.error('Invalid state value.');
-        res.status(400).send('Invalid state value.');
-      }
+      const accessToken = tokenResponse.data.access_token;
+      res.send(tokenResponse.data);
     } catch (error) {
       console.error('Error getting access token:', error);
       res.status(500).send('Error getting access token');
