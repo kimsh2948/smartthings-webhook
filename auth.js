@@ -1,6 +1,7 @@
 const axios = require('axios');
 const express = require('express');
 const router = express.Router();
+const { generateRandomState, saveState, getState } = require('./state');
 
 // // 스마트앱 정보
 // const clientId = '737638b7-2007-4550-8242-b95ea570c125';
@@ -35,26 +36,39 @@ router.get('/callback', async (req, res) => {
     console.log(req.query);
     const code = req.query.code;
 
+    const state = generateRandomState();
+    saveState(state);
+
     // 인증 코드를 사용하여 액세스 토큰을 요청
     const tokenParams = {
       grant_type: 'authorization_code',
       client_id: clientId,
       client_secret: clientSecret,
       redirect_uri: redirectUri,
-      code: code
+      code: code,
+      state: state
     };
 
     try {
-    const tokenResponse = await axios.post(`${tokenUrl}?${new URLSearchParams(tokenParams)}`, tokenParams, {
-      headers: {
-        'Content-Type': 'application/json'
+      const tokenResponse = await axios.post(`${tokenUrl}?${new URLSearchParams(tokenParams)}`, tokenParams, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      // 토큰을 성공적으로 받았을 때 "state" 값을 확인
+      const receivedState = req.query.state;
+      if (getState()[receivedState]) {
+        // "state" 값이 유효하면 토큰을 반환
+        const accessToken = tokenResponse.data.access_token;
+        res.send(tokenResponse.data);
+      } else {
+        // "state" 값이 유효하지 않으면 에러 처리
+        console.error('Invalid state value.');
+        res.status(400).send('Invalid state value.');
       }
-    })
-    const accessToken = tokenResponse.data.access_token;
-    res.send(tokenResponse.data);
     } catch (error) {
-    console.error('Error getting access token:', error);
-    res.status(500).send('Error getting access token');
+      console.error('Error getting access token:', error);
+      res.status(500).send('Error getting access token');
     }
 });
 
