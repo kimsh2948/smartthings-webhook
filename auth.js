@@ -7,8 +7,12 @@ const router = express.Router();
 // const clientSecret = '74ac395f-cb14-4390-afe0-2c3fd0a0dff1';
 
 // cli id
-const clientId = '0620ce9a-fe0b-4922-84b3-a0f2e1a9225a';
-const clientSecret = '5738a2fa-a3e9-4531-8aa9-4615fa5db637';
+// const clientId = '0620ce9a-fe0b-4922-84b3-a0f2e1a9225a';
+// const clientSecret = '5738a2fa-a3e9-4531-8aa9-4615fa5db637';
+
+// new cli id
+const clientId = 'fa7e64cd-f02d-4c4f-882d-9fe9e9d1f4cf';
+const clientSecret = '34ccaf7d-c11f-4595-bb82-0d60abad5a7c';
 
 const redirectUri = 'https://port-0-smartthings-webhook-2rrqq2blmqxv7cr.sel5.cloudtype.app/oauth/callback'; // 콜백 URL
 
@@ -47,8 +51,10 @@ router.get('/callback', async (req, res) => {
     try {
       const tokenResponse = await axios.post(`${tokenUrl}?${new URLSearchParams(tokenParams)}`, tokenParams, {
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+          'Content-Type': 'application/x-www-form-urlencoded'
         }
+      }).catch(err => {
+        console.log(err.message);
       })
       const accessToken = tokenResponse.data.access_token;
       res.send(tokenResponse.data);
