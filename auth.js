@@ -51,7 +51,7 @@ router.get('/callback', async (req, res) => {
       }
     })
     const accessToken = tokenResponse.data.access_token;
-    res.send(`Access Token: ${accessToken}`);
+    res.send(tokenResponse.data);
     } catch (error) {
     console.error('Error getting access token:', error);
     res.status(500).send('Error getting access token');
