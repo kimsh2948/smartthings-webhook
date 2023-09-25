@@ -35,9 +35,6 @@ router.get('/callback', async (req, res) => {
     console.log(req.query);
     const code = req.query.code;
 
-    const state = generateRandomState();
-    saveState(state);
-
     // 인증 코드를 사용하여 액세스 토큰을 요청
     const tokenParams = {
       grant_type: 'authorization_code',
