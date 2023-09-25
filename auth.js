@@ -15,7 +15,7 @@ const redirectUri = 'https://port-0-smartthings-webhook-2rrqq2blmqxv7cr.sel5.clo
 
 // 스마트싱스 OAuth 2.0 인증 엔드포인트 및 토큰 엔드포인트
 const authorizationUrl = 'https://api.smartthings.com/oauth/authorize';
-const tokenUrl = 'https://api.smartthings.com/oauth/token';
+const tokenUrl = 'https://graph.api.smartthings.com/oauth/token';
 
 const deviceScope = 'r:locations:* r:devices:* w:devices:* r:scenes:* x:locations:* x:scenes:* r:hubs:* w:devices:$ w:rules:* r:rules:* w:locations:* x:devices:* r:installedapps w:installedapps x:devices:$ r:devices:$';
 
@@ -57,6 +57,8 @@ router.get('/callback', async (req, res) => {
       })
       // 토큰을 성공적으로 받았을 때 "state" 값을 확인
       const receivedState = req.query.state;
+      console.log(receivedState);
+      console.log(getState());
       if (getState()[receivedState]) {
         // "state" 값이 유효하면 토큰을 반환
         const accessToken = tokenResponse.data.access_token;
