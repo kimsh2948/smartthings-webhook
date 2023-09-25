@@ -14,7 +14,7 @@ const redirectUri = 'https://port-0-smartthings-webhook-2rrqq2blmqxv7cr.sel5.clo
 
 // 스마트싱스 OAuth 2.0 인증 엔드포인트 및 토큰 엔드포인트
 const authorizationUrl = 'https://api.smartthings.com/oauth/authorize';
-const tokenUrl = 'https://auth-global.api.smartthings.com/oauth/token';
+const tokenUrl = 'https://graph.api.smartthings.com/oauth/token';
 
 const deviceScope = 'r:locations:* r:devices:* w:devices:* r:scenes:* x:locations:* x:scenes:* r:hubs:* w:devices:$ w:rules:* r:rules:* w:locations:* x:devices:* r:installedapps w:installedapps x:devices:$ r:devices:$';
 
@@ -22,6 +22,7 @@ const deviceScope = 'r:locations:* r:devices:* w:devices:* r:scenes:* x:location
 router.get('/login', (req, res) => {
   const authParams = {
     client_id: clientId,
+    client_secret: clientSecret,
     redirect_uri: redirectUri,
     response_type: 'code'
   };
@@ -41,7 +42,8 @@ router.get('/callback', async (req, res) => {
       client_id: clientId,
       client_secret: clientSecret,
       redirect_uri: redirectUri,
-      code: code
+      code: code,
+      scope: 'app'
     };
 
     try {
