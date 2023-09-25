@@ -13,8 +13,8 @@ const clientSecret = '5738a2fa-a3e9-4531-8aa9-4615fa5db637';
 const redirectUri = 'https://port-0-smartthings-webhook-2rrqq2blmqxv7cr.sel5.cloudtype.app/oauth/callback'; // 콜백 URL
 
 // 스마트싱스 OAuth 2.0 인증 엔드포인트 및 토큰 엔드포인트
-const authorizationUrl = 'https://graph.api.smartthings.com/oauth/authorize';
-const tokenUrl = 'https://graph.api.smartthings.com/oauth/token';
+const authorizationUrl = 'https://api.smartthings.com/oauth/authorize';
+const tokenUrl = 'https://auth-global.api.smartthings.com/oauth/token';
 
 const deviceScope = 'r:locations:* r:devices:* w:devices:* r:scenes:* x:locations:* x:scenes:* r:hubs:* w:devices:$ w:rules:* r:rules:* w:locations:* x:devices:* r:installedapps w:installedapps x:devices:$ r:devices:$';
 
@@ -45,9 +45,9 @@ router.get('/callback', async (req, res) => {
     };
 
     try {
-      const tokenResponse = await axios.post(tokenUrl, tokenParams, {
+      const tokenResponse = await axios.post(`${tokenUrl}?${new URLSearchParams(tokenParams)}`, tokenParams, {
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/x-www-form-urlencoded',
         }
       })
       const accessToken = tokenResponse.data.access_token;
