@@ -47,12 +47,9 @@ router.get('/callback', async (req, res) => {
     };
 
     try {
-      const tokenResponse = await axios.post(`${tokenUrl}?${new URLSearchParams(tokenParams)}`, tokenParams, {
+      const tokenResponse = await axios.post(tokenParams, new URLSearchParams(tokenParams), {
         headers: {
-          'schema': 'st-schema',
-          'version': '1.0',
-          'interactionType': 'accessTokenRequest',
-          'requestId': 'abc-123-456'
+          'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
         }
       })
       const accessToken = tokenResponse.data.access_token;
