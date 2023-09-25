@@ -58,7 +58,7 @@ router.get('/callback', async (req, res) => {
         console.log(res.data);
       })
       .catch(err => {
-        console.log(err.message);
+        console.log(err);
       })
       const accessToken = tokenResponse.data.access_token;
       res.send(tokenResponse.data);
