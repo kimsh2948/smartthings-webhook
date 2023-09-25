@@ -57,6 +57,7 @@ router.get('/callback', async (req, res) => {
       })
       // 토큰을 성공적으로 받았을 때 "state" 값을 확인
       const receivedState = req.query.state;
+      console.log(req.query);
       console.log(receivedState);
       console.log(getState());
       if (getState()[receivedState]) {
