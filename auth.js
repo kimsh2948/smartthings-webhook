@@ -2,17 +2,17 @@ const axios = require('axios');
 const express = require('express');
 const router = express.Router();
 
-// // 스마트앱 정보
-// const clientId = '737638b7-2007-4550-8242-b95ea570c125';
-// const clientSecret = '74ac395f-cb14-4390-afe0-2c3fd0a0dff1';
+// 스마트앱 정보
+const clientId = '737638b7-2007-4550-8242-b95ea570c125';
+const clientSecret = '74ac395f-cb14-4390-afe0-2c3fd0a0dff1';
 
 // cli id
 // const clientId = '0620ce9a-fe0b-4922-84b3-a0f2e1a9225a';
 // const clientSecret = '5738a2fa-a3e9-4531-8aa9-4615fa5db637';
 
-// new cli id
-const clientId = 'fa7e64cd-f02d-4c4f-882d-9fe9e9d1f4cf';
-const clientSecret = '34ccaf7d-c11f-4595-bb82-0d60abad5a7c';
+// // new cli id
+// const clientId = 'fa7e64cd-f02d-4c4f-882d-9fe9e9d1f4cf';
+// const clientSecret = '34ccaf7d-c11f-4595-bb82-0d60abad5a7c';
 
 const redirectUri = 'https://port-0-smartthings-webhook-2rrqq2blmqxv7cr.sel5.cloudtype.app/oauth/callback'; // 콜백 URL
 
@@ -20,7 +20,8 @@ const redirectUri = 'https://port-0-smartthings-webhook-2rrqq2blmqxv7cr.sel5.clo
 const authorizationUrl = 'https://api.smartthings.com/oauth/authorize';
 const tokenUrl = 'https://api.smartthings.com/oauth/token';
 
-const deviceScope = 'r:locations:* r:devices:* w:devices:* r:scenes:* x:locations:* x:scenes:* r:hubs:* w:devices:$ w:rules:* r:rules:* w:locations:* x:devices:* r:installedapps w:installedapps x:devices:$ r:devices:$';
+const deviceScope = 'i:deviceprofiles:* r:customcapability r:devices:* r:hubs:* r:locations:* r:rules:* r:scenes:* w:devices:* w:rules:* x:devices:* x:scenes:*'
+//const deviceScope = 'r:locations:* r:devices:* w:devices:* r:scenes:* x:locations:* x:scenes:* r:hubs:* w:devices:$ w:rules:* r:rules:* w:locations:* x:devices:* r:installedapps w:installedapps x:devices:$ r:devices:$';
 
 // 사용자의 스마트싱스 계정으로 로그인하는 페이지
 router.get('/login', (req, res) => {
@@ -28,6 +29,8 @@ router.get('/login', (req, res) => {
     client_id: clientId,
     redirect_uri: redirectUri,
     response_type: 'code',
+    scope: deviceScope,
+    state: 'abc'
   };
   const authUrl = `${authorizationUrl}?${new URLSearchParams(authParams)}`;
   console.log(authUrl);
@@ -46,6 +49,7 @@ router.get('/callback', async (req, res) => {
       client_secret: clientSecret,
       redirect_uri: redirectUri,
       code: code,
+      scope: deviceScope
     };
 
     try {
