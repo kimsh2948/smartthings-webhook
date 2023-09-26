@@ -42,7 +42,7 @@ router.get('/callback', async (req, res) => {
 
     // 인증 코드를 사용하여 액세스 토큰을 요청
     const tokenParams = {
-      grant_type: 'authorization_code',
+      grant_type: 'code',
       client_id: clientId,
       client_secret: clientSecret,
       redirect_uri: redirectUri,
