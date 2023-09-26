@@ -26,7 +26,6 @@ const deviceScope = 'r:locations:* r:devices:* w:devices:* r:scenes:* x:location
 router.get('/login', (req, res) => {
   const authParams = {
     client_id: clientId,
-    clientSecret: clientSecret,
     redirect_uri: redirectUri,
     response_type: 'code',
   };
