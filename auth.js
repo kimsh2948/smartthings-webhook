@@ -51,6 +51,7 @@ router.get('/callback', async (req, res) => {
     try {
       const tokenResponse = await axios.post(tokenUrl, tokenParams, {
         headers: {
+          'Accept': 'application/vnd.smartthings+json;v=1',
           'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
         }
       })
