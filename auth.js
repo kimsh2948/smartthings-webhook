@@ -6,13 +6,13 @@ const router = express.Router();
 // const clientId = '737638b7-2007-4550-8242-b95ea570c125';
 // const clientSecret = '74ac395f-cb14-4390-afe0-2c3fd0a0dff1';
 
-//cli id
-const clientId = '0620ce9a-fe0b-4922-84b3-a0f2e1a9225a';
-const clientSecret = '5738a2fa-a3e9-4531-8aa9-4615fa5db637';
+// //cli id
+// const clientId = '0620ce9a-fe0b-4922-84b3-a0f2e1a9225a';
+// const clientSecret = '5738a2fa-a3e9-4531-8aa9-4615fa5db637';
 
-// // new cli id
-// const clientId = 'fa7e64cd-f02d-4c4f-882d-9fe9e9d1f4cf';
-// const clientSecret = '34ccaf7d-c11f-4595-bb82-0d60abad5a7c';
+// new cli id
+const clientId = 'fa7e64cd-f02d-4c4f-882d-9fe9e9d1f4cf';
+const clientSecret = '34ccaf7d-c11f-4595-bb82-0d60abad5a7c';
 
 const redirectUri = 'https://port-0-smartthings-webhook-2rrqq2blmqxv7cr.sel5.cloudtype.app/oauth/callback'; // 콜백 URL
 
@@ -28,8 +28,7 @@ router.get('/login', (req, res) => {
   const authParams = {
     client_id: clientId,
     redirect_uri: redirectUri,
-    response_type: 'code',
-    state: 'abc'
+    response_type: 'code'
   };
   const authUrl = `${authorizationUrl}?${new URLSearchParams(authParams)}`;
   console.log(authUrl);
@@ -53,7 +52,6 @@ router.get('/callback', async (req, res) => {
     try {
       const tokenResponse = await axios.post(tokenUrl, tokenParams, {
         headers: {
-          'Accept': 'application/vnd.smartthings+json;v=1',
           'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
         }
       })
