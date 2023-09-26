@@ -49,7 +49,6 @@ router.get('/callback', async (req, res) => {
       client_secret: clientSecret,
       redirect_uri: redirectUri,
       code: code,
-      scope: deviceScope
     };
 
     try {
