@@ -54,12 +54,14 @@ router.get('/callback', async (req, res) => {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
         }
+
       })
       .catch(err => {
         console.log(err);
       })
-      const accessToken = tokenResponse.data.access_token;
-      res.send(tokenResponse.data);
+      console.log(JSON.stringify(tokenResponse));
+      // const accessToken = tokenResponse.data.access_token;
+      // res.send(tokenResponse.data);
     } catch (error) {
       console.error('Error getting access token:', error);
       res.status(500).send('Error getting access token');
