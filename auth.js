@@ -14,7 +14,7 @@ const router = express.Router();
 const clientId = 'fa7e64cd-f02d-4c4f-882d-9fe9e9d1f4cf';
 const clientSecret = '34ccaf7d-c11f-4595-bb82-0d60abad5a7c';
 
-const redirectUri = 'https://port-0-smartthings-webhook-2rrqq2blmqxv7cr.sel5.cloudtype.app/oauth/callback'; // 콜백 URL
+const redirectUri = 'https://port-0-smartthings-webhook-2rrqq2blmqxv7cr.sel5.cloudtype.app/oauth/callback2'; // 콜백 URL
 
 // 스마트싱스 OAuth 2.0 인증 엔드포인트 및 토큰 엔드포인트
 const authorizationUrl = 'https://api.smartthings.com/oauth/authorize';
@@ -58,7 +58,7 @@ router.get('/callback', async (req, res) => {
     })
 });
 // 스마트싱스에서 리디렉션하고 인증 코드를 수신하는 콜백 핸들러
-router.post('/callback', async (req, res) => {
+router.get('/callback2', async (req, res) => {
     console.log(req.query);
     // const code = req.query.code;
 
