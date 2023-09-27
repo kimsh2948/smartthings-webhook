@@ -54,9 +54,6 @@ router.get('/callback', async (req, res) => {
             'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
           }
     })
-    .catch(err => {
-      console.log(JSON.stringify(err, null, 2));
-    })
       
     console.log(JSON.stringify(tokenResponse));
 
