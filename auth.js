@@ -49,13 +49,21 @@ router.get('/callback', async (req, res) => {
       code: code,
     };
 
-    const tokenResponse = await axios.post(tokenUrl, tokenParams, {
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
-          }
+    axios.post(tokenUrl, tokenParams)
+    .then(function (response) {
+      console.log(response);
     })
+    .catch(function (error) {
+      console.log(error);
+    })
+
+    // const tokenResponse = await axios.post(tokenUrl, tokenParams, {
+    //       headers: {
+    //         'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+    //       }
+    // })
       
-    console.log(JSON.stringify(tokenResponse));
+    // console.log(JSON.stringify(tokenResponse));
 
     // try {
     //   const tokenResponse = await axios.post(tokenUrl, tokenParams, {
