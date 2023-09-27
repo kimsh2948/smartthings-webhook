@@ -14,13 +14,13 @@ const router = express.Router();
 const clientId = 'fa7e64cd-f02d-4c4f-882d-9fe9e9d1f4cf';
 const clientSecret = '34ccaf7d-c11f-4595-bb82-0d60abad5a7c';
 
-const redirectUri = 'https://port-0-smartthings-webhook-2rrqq2blmqxv7cr.sel5.cloudtype.app/oauth/callback'; // 콜백 URL
+const redirectUri = 'https://port-0-smartthings-webhook-2rrqq2blmqxv7cr.sel5.cloudtype.app/oauth/callback2'; // 콜백 URL
 
 // 스마트싱스 OAuth 2.0 인증 엔드포인트 및 토큰 엔드포인트
 const authorizationUrl = 'https://api.smartthings.com/oauth/authorize';
 const tokenUrl = 'https://api.smartthings.com/oauth/token';
 
-const deviceScope = 'i:deviceprofiles:* r:customcapability r:devices:* r:hubs:* r:locations:* r:rules:* r:scenes:* w:devices:* w:rules:* x:devices:* x:scenes:*'
+//const deviceScope = 'i:deviceprofiles:* r:customcapability r:devices:* r:hubs:* r:locations:* r:rules:* r:scenes:* w:devices:* w:rules:* x:devices:* x:scenes:*'
 //const deviceScope = 'r:locations:* r:devices:* w:devices:* r:scenes:* x:locations:* x:scenes:* r:hubs:* w:devices:$ w:rules:* r:rules:* w:locations:* x:devices:* r:installedapps w:installedapps x:devices:$ r:devices:$';
 
 // 사용자의 스마트싱스 계정으로 로그인하는 페이지
@@ -35,8 +35,7 @@ router.get('/login', (req, res) => {
   res.redirect(authUrl);
 });
 
-// 스마트싱스에서 리디렉션하고 인증 코드를 수신하는 콜백 핸들러
-router.get('/callback', async (req, res) => {
+router.get('/callback2', async (req, res) => {
     console.log(req.query);
     const code = req.query.code;
 
@@ -46,16 +45,40 @@ router.get('/callback', async (req, res) => {
       client_id: clientId,
       client_secret: clientSecret,
       redirect_uri: redirectUri,
-      code: code,
+      code: code
     };
 
     axios.post(tokenUrl, tokenParams)
     .then(function (response) {
       console.log(response);
+
     })
     .catch(function (error) {
       console.log(error);
     })
+});
+// 스마트싱스에서 리디렉션하고 인증 코드를 수신하는 콜백 핸들러
+router.get('/callback', async (req, res) => {
+    console.log(req.query);
+    // const code = req.query.code;
+
+    // 인증 코드를 사용하여 액세스 토큰을 요청
+
+    // const tokenParams = {
+    //   grant_type: 'code',
+    //   client_id: clientId,
+    //   client_secret: clientSecret,
+    //   redirect_uri: redirectUri,
+    //   code: code
+    // };
+
+    // axios.post(tokenUrl, tokenParams)
+    // .then(function (response) {
+    //   console.log(response);
+    // })
+    // .catch(function (error) {
+    //   console.log(error);
+    // })
 
     // const tokenResponse = await axios.post(tokenUrl, tokenParams, {
     //       headers: {
@@ -86,7 +109,7 @@ router.get('/callback', async (req, res) => {
 
 module.exports = router;
 
-// scope: [
+// deviceScope: [
 //   "r:devices:$",
 //   "r:devices:*",
 //   "r:hubs:*",
