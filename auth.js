@@ -55,10 +55,10 @@ router.get('/callback', async (req, res) => {
           }
     })
     .catch(err => {
-      console.log(JSON.stringify(err));
+      console.log(JSON.stringify(err, null, 2));
     })
       
-    console.log(JSON.stringify(tokenResponse));
+    console.log(JSON.stringify(tokenResponse, null, 2));
 
     // try {
     //   const tokenResponse = await axios.post(tokenUrl, tokenParams, {
