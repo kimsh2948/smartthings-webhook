@@ -49,23 +49,31 @@ router.get('/callback', async (req, res) => {
       code: code,
     };
 
-    try {
-      const tokenResponse = await axios.post(tokenUrl, tokenParams, {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
-        }
+    const tokenResponse = await axios.post(tokenUrl, tokenParams, {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+          }
+    })
+      
+    console.log(JSON.stringify(tokenResponse));
 
-      })
-      .catch(err => {
-        console.log(err);
-      })
-      console.log(JSON.stringify(tokenResponse));
-      // const accessToken = tokenResponse.data.access_token;
-      // res.send(tokenResponse.data);
-    } catch (error) {
-      console.error('Error getting access token:', error);
-      res.status(500).send('Error getting access token');
-    }
+    // try {
+    //   const tokenResponse = await axios.post(tokenUrl, tokenParams, {
+    //     headers: {
+    //       'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+    //     }
+
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   })
+    //   console.log(JSON.stringify(tokenResponse));
+    //   // const accessToken = tokenResponse.data.access_token;
+    //   // res.send(tokenResponse.data);
+    // } catch (error) {
+    //   console.error('Error getting access token:', error);
+    //   res.status(500).send('Error getting access token');
+    // }
 });
 
 module.exports = router;
