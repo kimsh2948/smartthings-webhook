@@ -21,6 +21,8 @@ const authorizationUrl = 'https://api.smartthings.com/oauth/authorize';
 const tokenUrl = 'https://api.smartthings.com/oauth/token';
 // const tokenUrl = 'https://graph.api.smartthings.com/oauth/token';
 
+const authHeader = `Basic ${Buffer.from(`${clientId}:${clientSecret}`).toString('base64')}`;
+
 //const deviceScope = 'i:deviceprofiles:* r:customcapability r:devices:* r:hubs:* r:locations:* r:rules:* r:scenes:* w:devices:* w:rules:* x:devices:* x:scenes:*'
 //const deviceScope = 'r:locations:* r:devices:* w:devices:* r:scenes:* x:locations:* x:scenes:* r:hubs:* w:devices:$ w:rules:* r:rules:* w:locations:* x:devices:* r:installedapps w:installedapps x:devices:$ r:devices:$';
 
@@ -96,7 +98,8 @@ router.get('/callback', async (req, res) => {
     try {
       const tokenResponse = await axios.post(`${tokenUrl}?${new URLSearchParams(tokenParams)}`, tokenParams, {
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded;'
+          'Content-Type': 'application/x-www-form-urlencoded;',
+          'Authorization': authHeader
         }
 
       })
