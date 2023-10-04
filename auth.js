@@ -87,14 +87,6 @@ router.get('/callback', async (req, res) => {
       code: code
     };
 
-    axios.post(tokenUrl, tokenParams)
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    })
-
     try {
       const tokenResponse = await axios.post(`${tokenUrl}?${new URLSearchParams(tokenParams)}`, tokenParams, {
         headers: {
