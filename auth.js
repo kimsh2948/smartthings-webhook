@@ -88,7 +88,7 @@ router.get('/callback', async (req, res) => {
     };
 
     try {
-      const tokenResponse = await axios.post(`${tokenUrl}?${new URLSearchParams(tokenParams)}`, tokenParams, {
+      const tokenResponse = await axios.post(tokenUrl, tokenParams, {
         headers: {
           'Authorization': authHeader,
           'Content-Type': 'application/x-www-form-urlencoded;'
