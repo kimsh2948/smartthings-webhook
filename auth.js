@@ -18,8 +18,8 @@ const redirectUri = 'https://port-0-smartthings-webhook-2rrqq2blmqxv7cr.sel5.clo
 
 // 스마트싱스 OAuth 2.0 인증 엔드포인트 및 토큰 엔드포인트
 const authorizationUrl = 'https://api.smartthings.com/oauth/authorize';
-// const tokenUrl = 'https://api.smartthings.com/oauth/token';
-const tokenUrl = 'https://graph.api.smartthings.com/oauth/token';
+const tokenUrl = 'https://api.smartthings.com/oauth/token';
+// const tokenUrl = 'https://graph.api.smartthings.com/oauth/token';
 
 //const deviceScope = 'i:deviceprofiles:* r:customcapability r:devices:* r:hubs:* r:locations:* r:rules:* r:scenes:* w:devices:* w:rules:* x:devices:* x:scenes:*'
 //const deviceScope = 'r:locations:* r:devices:* w:devices:* r:scenes:* x:locations:* x:scenes:* r:hubs:* w:devices:$ w:rules:* r:rules:* w:locations:* x:devices:* r:installedapps w:installedapps x:devices:$ r:devices:$';
@@ -36,88 +36,79 @@ router.get('/login', (req, res) => {
   res.redirect(authUrl);
 });
 
+// router.get('/callback2', async (req, res) => {
+//     console.log(req.query);
+//     const code = req.query.code;
+
+//     // 인증 코드를 사용하여 액세스 토큰을 요청
+//     const tokenParams = {
+//         grant_type: 'authorization_code',
+//         client_id: clientId,
+//         client_secret: clientSecret,
+//         redirect_uri: redirectUri,
+//         code: code,
+//         scop: 'app'
+//     };
+
+//     try {
+//         const tokenResponse = await axios.get(`${tokenUrl}?${new URLSearchParams(tokenParams)}`);
+//         /*
+//         const tokenResponse = await axios.get(tokenUrl, tokenParams, {
+//             headers: {
+//                 'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+//             }
+//         })
+//         .catch(err => {
+//             console.log(err);
+//         })
+//         */
+//       console.log(tokenResponse);
+//       // const accessToken = tokenResponse.data.access_token;
+//       // res.send(tokenResponse.data);
+//     } catch (error) {
+//       console.error('Error getting access token:', error);
+//       res.status(500).send('Error getting access token');
+//     }
+// });
+
+
+// 스마트싱스에서 리디렉션하고 인증 코드를 수신하는 콜백 핸들러
 router.get('/callback', async (req, res) => {
     console.log(req.query);
     const code = req.query.code;
 
-    // 인증 코드를 사용하여 액세스 토큰을 요청
+    //인증 코드를 사용하여 액세스 토큰을 요청
     const tokenParams = {
-        grant_type: 'authorization_code',
-        client_id: clientId,
-        client_secret: clientSecret,
-        redirect_uri: redirectUri,
-        code: code,
-        scop: 'app'
+      grant_type: 'authorization_code',
+      client_id: clientId,
+      redirect_uri: redirectUri,
+      code: code
     };
 
+    axios.post(tokenUrl, tokenParams)
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
+
     try {
-        const tokenResponse = await axios.get(`${tokenUrl}?${new URLSearchParams(tokenParams)}`);
-        /*
-        const tokenResponse = await axios.get(tokenUrl, tokenParams, {
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
-            }
-        })
-        .catch(err => {
-            console.log(err);
-        })
-        */
-      console.log(tokenResponse);
-      // const accessToken = tokenResponse.data.access_token;
-      // res.send(tokenResponse.data);
+      const tokenResponse = await axios.post(`${tokenUrl}?${new URLSearchParams(tokenParams)}`, tokenParams, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded;'
+        }
+
+      })
+      .catch(err => {
+        console.log(err);
+      })
+      console.log(JSON.stringify(tokenResponse));
+      res.send(tokenResponse.data);
     } catch (error) {
       console.error('Error getting access token:', error);
       res.status(500).send('Error getting access token');
     }
-});
-// 스마트싱스에서 리디렉션하고 인증 코드를 수신하는 콜백 핸들러
-router.get('/callback2', async (req, res) => {
-    console.log(req.query);
-    // const code = req.query.code;
-
-    // 인증 코드를 사용하여 액세스 토큰을 요청
-
-    // const tokenParams = {
-    //   grant_type: 'code',
-    //   client_id: clientId,
-    //   client_secret: clientSecret,
-    //   redirect_uri: redirectUri,
-    //   code: code
-    // };
-
-    // axios.post(tokenUrl, tokenParams)
-    // .then(function (response) {
-    //   console.log(response);
-    // })
-    // .catch(function (error) {
-    //   console.log(error);
-    // })
-
-    // const tokenResponse = await axios.post(tokenUrl, tokenParams, {
-    //       headers: {
-    //         'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
-    //       }
-    // })
-      
-    // console.log(JSON.stringify(tokenResponse));
-
-    // try {
-    //   const tokenResponse = await axios.post(tokenUrl, tokenParams, {
-    //     headers: {
-    //       'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
-    //     }
-
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   })
-    //   console.log(JSON.stringify(tokenResponse));
-    //   // const accessToken = tokenResponse.data.access_token;
-    //   // res.send(tokenResponse.data);
-    // } catch (error) {
-    //   console.error('Error getting access token:', error);
-    //   res.status(500).send('Error getting access token');
-    // }
 });
 
 module.exports = router;
