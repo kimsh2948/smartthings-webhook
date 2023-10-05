@@ -98,7 +98,6 @@ router.get('/callback', async (req, res) => {
       .catch(err => {
         console.log(err);
       })
-      console.log(JSON.stringify(tokenResponse));
       res.send(tokenResponse.data);
     } catch (error) {
       console.error('Error getting access token:', error);
