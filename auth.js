@@ -1,5 +1,6 @@
 const axios = require('axios');
 const express = require('express');
+const session = require('express-session');
 const router = express.Router();
 
 // // 스마트앱 정보
@@ -58,7 +59,8 @@ router.get('/callback', async (req, res) => {
       .catch(err => {
         console.log(err);
       })
-      res.send(tokenResponse.data);
+      req.session.accessToken = tokenResponse.data.accessToken;
+      res.redirect('/control/devices');
     } catch (error) {
       console.error('Error getting access token:', error);
       res.status(500).send('Error getting access token');

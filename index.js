@@ -6,13 +6,20 @@
  * are implicitly supported through SDK usage.
  */
 const express = require('express');
+const session = require('express-session');
 const SmartApp = require('@smartthings/smartapp');
 const server = express();
 const PORT = 8080;
 
 const authRouter = require('./auth');
+const controlRouter = require('./control');
 
 server.use(express.json());
+server.use(session({
+    secret: 'keyboard cat', 
+    resave: false,
+    saveUninitialized: true,
+}));
 
 const smartapp = new SmartApp()
 // If you do not have it yet, omit publicKey() - i.e. PING lifecycle
@@ -33,6 +40,7 @@ const smartapp = new SmartApp()
     });
 
 server.use('/oauth', authRouter);
+server.use('/control', controlRouter);
 
 server.get('/', (req, res, next) => {
    console.log('In');
