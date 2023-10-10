@@ -37,6 +37,8 @@ router.get('/devices', (req, res) => {
 
 //디바이스 상태 조회
 router.get('/device-status', (req, res) => {
+    const accessToken = req.session.accessToken;
+    
     const deviceId = req.query.deviceId;
 
     axios.get(`/devices/${deviceId}/status`, {
@@ -57,6 +59,8 @@ router.get('/device-status', (req, res) => {
 
 //디바이스 정보 조회로 사용 가능 기능 추출
 router.get('/device-info', (req, res) => {
+    const accessToken = req.session.accessToken;
+
     const deviceId = req.query.deviceId;
 
     axios.get(`/devices/${deviceId}`, {
@@ -77,6 +81,8 @@ router.get('/device-info', (req, res) => {
 
 //디바이스 커맨드 조회
 router.get('/device-control', (req, res) => {
+    const accessToken = req.session.accessToken;
+
     const deviceId = req.query.deviceId;
     const deviceCapId = req.query.deviceCapId;
     const deviceCapVersion = req.query.deviceCapVersion;
@@ -99,6 +105,8 @@ router.get('/device-control', (req, res) => {
 
 //디바이스 제어
 router.post('/device-control', (req, res) => {
+    const accessToken = req.session.accessToken;
+
     const deviceId = req.body.deviceId;
     const deviceCapId = req.body.deviceCapId;
     const command = req.body.command;
