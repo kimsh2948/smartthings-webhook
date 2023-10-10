@@ -22,7 +22,7 @@ router.get('/devices', async (req, res) => {
         console.log(response.data);
         const deviceId = response.data.items[1].deviceId;
         console.log(deviceId);
-        return deviceId;
+        res.send(response.data.items);
     })
     .catch(err => {
         console.log(err);
