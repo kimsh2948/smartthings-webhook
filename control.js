@@ -29,3 +29,5 @@ router.get('/devices', async (req, res) => {
         res.status(500).send('Error get device list');
     })
 });
+
+module.exports = router;
