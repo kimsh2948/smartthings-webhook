@@ -62,7 +62,8 @@ router.get('/callback', async (req, res) => {
       .catch(err => {
         console.log(err);
       })
-      req.session.accessToken = tokenResponse.data.accessToken;
+      console.log(tokenResponse);
+      req.session.accessToken = tokenResponse.accessToken;
       res.redirect('/control/devices');
     } catch (error) {
       console.error('Error getting access token:', error);

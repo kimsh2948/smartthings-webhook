@@ -5,9 +5,6 @@ const router = express.Router();
 
 axios.defaults.baseURL = 'https://api.smartthings.com';
 
-// 환경변수로 node에서 허가되지 않은 인증TLS통신을 거부하지 않겠다고 설정
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-
 const checkSession = (req, res) => {
     if (!req.session.accessToken) {
         return res.redirect('/oauth/login'); // 로그인 페이지로 리다이렉션
