@@ -56,9 +56,9 @@ router.get('/callback', async (req, res) => {
         }
 
       })
-      .then(res => {
-        console.log(res.data);
-        req.session.accessToken = res.data.access_token;
+      .then(response => {
+        console.log(response.data);
+        req.session.accessToken = response.data.access_token;
         res.redirect('/control/devices');
       })
       .catch(err => {
