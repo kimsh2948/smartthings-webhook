@@ -56,6 +56,9 @@ router.get('/callback', async (req, res) => {
         }
 
       })
+      .then(res => {
+        console.log(res.data);
+      })
       .catch(err => {
         console.log(err);
       })
