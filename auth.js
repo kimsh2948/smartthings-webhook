@@ -59,7 +59,7 @@ router.get('/callback', async (req, res) => {
       .then(response => {
         console.log(response.data);
         req.session.accessToken = response.data.access_token;
-        res.send('OAauth success');
+        res.redirect('http://127.0.0.1:5501/test2.html');
       })
       .catch(err => {
         console.log(err);
