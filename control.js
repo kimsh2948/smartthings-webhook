@@ -9,7 +9,7 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 const checkSession = (req, res) => {
     if (!req.session.accessToken) {
-        return res.redirect('/oauth/login'); // 로그인 페이지로 리다이렉션
+        return res.send('Nothing token');
     }
 };
 
