@@ -7,6 +7,7 @@
  */
 const express = require('express');
 const session = require('express-session');
+const cors = require('cors');
 const SmartApp = require('@smartthings/smartapp');
 const server = express();
 const PORT = 8080;
@@ -20,6 +21,7 @@ server.use(session({
     resave: false,
     saveUninitialized: true,
 }));
+server.use(cors());
 
 const smartapp = new SmartApp()
 // If you do not have it yet, omit publicKey() - i.e. PING lifecycle
