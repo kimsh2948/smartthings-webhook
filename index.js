@@ -15,13 +15,13 @@ const PORT = 8080;
 const authRouter = require('./auth');
 const controlRouter = require('./control');
 
+server.use(cors());
 server.use(express.json());
 server.use(session({
     secret: 'keyboard cat', 
     resave: false,
     saveUninitialized: true,
 }));
-server.use(cors());
 
 const smartapp = new SmartApp()
 // If you do not have it yet, omit publicKey() - i.e. PING lifecycle
