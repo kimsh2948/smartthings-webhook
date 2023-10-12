@@ -18,9 +18,15 @@ document.addEventListener("DOMContentLoaded", () => {
             data.forEach(device => {
                 const deviceItem = document.createElement('div');
                 deviceItem.className = 'device-item';
-                deviceItem.dataset.id = device.deviceId; 
                 deviceItem.textContent = device.name;
                 deviceListContainer.appendChild(deviceItem);
+
+                // 디바이스 아이템을 클릭할 때 상태 조회 및 UI 업데이트 수행
+                deviceItem.addEventListener('click', async () => {
+                    await fetchDeviceStatus(device.id); // 디바이스 상태 조회 및 UI 업데이트
+                    deviceDetailsContainer.style.display = 'block'; // 디바이스 상세 정보 보이기
+                });
+
             });
         } catch (error) {
             console.error('Error fetching device list:', error);
