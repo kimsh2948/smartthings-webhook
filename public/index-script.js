@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 // 디바이스 아이템을 클릭할 때 상태 조회 및 UI 업데이트 수행
                 deviceItem.addEventListener('click', async () => {
-                    await fetchDeviceStatus(device.id); // 디바이스 상태 조회 및 UI 업데이트
+                    await fetchDeviceStatus(device.deviceId); // 디바이스 상태 조회 및 UI 업데이트
                     deviceDetailsContainer.style.display = 'block'; // 디바이스 상세 정보 보이기
                 });
 
