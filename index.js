@@ -8,6 +8,7 @@
 const express = require('express');
 const session = require('express-session');
 const cors = require('cors');
+const path = require('path');
 const SmartApp = require('@smartthings/smartapp');
 const server = express();
 const PORT = 8080;
@@ -22,6 +23,7 @@ server.use(session({
     resave: false,
     saveUninitialized: true,
 }));
+server.use(express.static('public'));
 
 const smartapp = new SmartApp()
 // If you do not have it yet, omit publicKey() - i.e. PING lifecycle
@@ -53,5 +55,15 @@ server.post('/', (req, res, next) => {
    console.log(req.header('Authorization'));
    smartapp.handleHttpCallback(req, res)
 });
+
+server.get('/home', (req, res) => {
+    console.log('start');
+    res.sendFile(path.join(__dirname+'/start.html'));
+})
+
+server.get('/home', (req, res) => {
+    console.log('home');
+    res.sendFile(path.join(__dirname+'/index.html'));
+})
 
 server.listen(PORT, () => console.log(`Server is up and running on port ${PORT}`));

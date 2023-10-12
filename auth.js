@@ -59,7 +59,7 @@ router.get('/callback', async (req, res) => {
       .then(response => {
         console.log(response.data);
         req.session.accessToken = response.data.access_token;
-        res.redirect('http://127.0.0.1:5501/test2.html');
+        res.redirect('/home');
       })
       .catch(err => {
         console.log(err);
