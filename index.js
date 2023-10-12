@@ -56,7 +56,7 @@ server.post('/', (req, res, next) => {
    smartapp.handleHttpCallback(req, res)
 });
 
-server.get('/home', (req, res) => {
+server.get('/start', (req, res) => {
     console.log('start');
     res.sendFile(path.join(__dirname+'/start.html'));
 })
