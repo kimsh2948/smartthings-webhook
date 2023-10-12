@@ -46,9 +46,9 @@ document.addEventListener("DOMContentLoaded", () => {
             let imageURL = '';
             const status = data.components.main.switch.switch.value;
             if (status === 'on'){
-                deviceImage.src = `/image/switch-on`;
+                deviceImage.src = `/image/switch-on.png`;
             } else if (status === 'off'){
-                deviceImage.src = `/image/switch-off`;
+                deviceImage.src = `/image/switch-off.png`;
             }
             deviceStatus.textContent = `상태 : ${status}`;
 
