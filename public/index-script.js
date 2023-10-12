@@ -2,8 +2,8 @@
 document.addEventListener("DOMContentLoaded", () => {
     const deviceListContainer = document.querySelector('.device-list');
     const deviceDetailsContainer = document.querySelector('.device-details');
-    const deviceImage = document.querySelector('.device-image');
-    const deviceStatus = document.querySelector('.device-status');
+    const deviceImage = document.getElementById('device-image');
+    const deviceStatus = document.getElementById('device-status');
 
     // API에서 디바이스 목록을 가져오는 함수
     async function fetchDeviceList() {
@@ -45,12 +45,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
             let imageURL = '';
             const status = data.components.main.switch.switch.value;
-            deviceStatus.textContent = status;
             if (status === 'on'){
                 deviceImage.src = `/image/switch-on`;
             } else if (status === 'off'){
                 deviceImage.src = `/image/switch-off`;
             }
+            deviceStatus.textContent = `상태 : ${status}`;
 
         } catch (error) {
             console.error('Error controlling device:', error);
