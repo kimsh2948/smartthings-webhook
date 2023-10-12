@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
     async function fetchDeviceStatus(deviceId) {
         try {
             // API를 호출하여 디바이스 제어 요청
-            const response = await fetch(`https://port-0-smartthings-webhook-2rrqq2blmqxv7cr.sel5.cloudtype.app/control/devic-status?${deviceId}`, {
+            const response = await fetch(`https://port-0-smartthings-webhook-2rrqq2blmqxv7cr.sel5.cloudtype.app/control/device-status?${deviceId}`, {
                 method: 'GET',
             });
 
