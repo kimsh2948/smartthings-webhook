@@ -77,6 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const data = await response.json();
             console.log(data); // 성공한 경우에 대한 응답을 콘솔에 출력
+            functionListContainer.innerHTML = '';
 
             // 기능 목록을 가져와서 추가
             for (const functionName of data) {
@@ -84,8 +85,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 functionItem.textContent = functionName.commandId;
 
                 for (const [commandName, commandValue] of Object.entries(functionName.command)) {
-                    const commandItem = document.createElement('div');
-                    commandItem.textContent = `제어 : ${commandName}`;
+                    const commandItem = document.createElement('button');
+                    commandItem.textContent = commandName;
                     functionItem.appendChild(commandItem);
                     commandItem.addEventListener('click', async () => {
                         await controlDevice(deviceId, functionName.commandId, commandValue.name, commandValue.arguments);

@@ -14,24 +14,26 @@
 <body>
     <div class="dashboard">
         <div class="chart chart1">
-            SmartThings Device Control
+            <h1>SmartThings Device Control</h1>
         </div>
         <div class="data-table">
             <div>
-                디바이스 목록
+                <h2>디바이스 목록</h2>
             </div>
             <div class="device-list">
                 <!-- Device 목록-->
+                
+            </div>
+            <div class="device-details" style="display: none;">
+                <img id="device-image" src="" alt="디바이스 이미지" width="300px" height="400px">
+                <p id="device-status"></p>
+                <button id="control-button">제어하기</button>
+                <div id="function-list">
+                    <!-- 기능 목록이 여기에 동적으로 추가 -->
+                </div>
             </div>
         </div>
-        <div class="device-details" style="display: none;">
-            <img id="device-image" src="" alt="디바이스 이미지" width="300px" height="400px">
-            <p id="device-status"></p>
-            <button id="control-button">제어하기</button>
-            <div id="function-list">
-                <!-- 기능 목록이 여기에 동적으로 추가 -->
-            </div>
-        </div>
+        
     </div>
 </body>
 
