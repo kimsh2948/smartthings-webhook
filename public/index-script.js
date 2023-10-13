@@ -109,7 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 arguments: arguments
             };
             // API를 호출하여 디바이스 제어 요청
-            const response = await fetch(`https://port-0-smartthings-webhook-2rrqq2blmqxv7cr.sel5.cloudtype.app/control/devices/${deviceId}/command`, {
+            const response = await fetch(`https://port-0-smartthings-webhook-2rrqq2blmqxv7cr.sel5.cloudtype.app/control/device-control?deviceId=${deviceId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
