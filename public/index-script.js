@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // '제어하기' 버튼 클릭 시 이벤트 핸들러 등록
             controlButton.addEventListener('click', async () => {
-                
+                fetchDeviceInfo(deviceId);
             });
 
         } catch (error) {
