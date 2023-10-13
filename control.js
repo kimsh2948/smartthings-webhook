@@ -83,10 +83,11 @@ router.get('/device-info', (req, res) => {
             .then(response => {
                 console.log(response.data);
                 const commands = {
-                    commandId: cap.id,
-                    command: response
+                    commandId: response.data.id,
+                    command: response.data.commands
                 }
                 functions.push(commands);
+                console.log(functions);
             })
         });
         res.send(functions);
