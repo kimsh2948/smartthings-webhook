@@ -71,7 +71,25 @@ router.get('/device-info', (req, res) => {
     })
     .then(response => {
         console.log(response.data);
-        res.send(response.data);
+        const capabilities = response.data.components[0].capabilities;
+        functions = [];
+        capabilities.forEach(async (cap) => {
+            await axios.get(`/capabilities/${cap.id}/${cap.version}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`
+                }
+            })
+            .then(response => {
+                console.log(response.data);
+                const commands = {
+                    commandId: cap.id,
+                    command: response
+                }
+                functions.push(commands);
+            })
+        });
+        res.send(functions);
     })
     .catch(err => {
         console.log(err);

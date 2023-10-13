@@ -4,6 +4,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const deviceDetailsContainer = document.querySelector('.device-details');
     const deviceImage = document.getElementById('device-image');
     const deviceStatus = document.getElementById('device-status');
+    const controlButton = document.getElementById('control-button');
+    const functionListContainer = document.getElementById('function-list');
+    const commandList = document.getElementById('command-list');
 
     // API에서 디바이스 목록을 가져오는 함수
     async function fetchDeviceList() {
@@ -52,6 +55,42 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             deviceStatus.textContent = `상태 : ${status}`;
 
+            // '제어하기' 버튼을 보이도록 설정
+            controlButton.style.display = 'block';
+            functionListContainer.innerHTML = ''; // 기능 목록 초기화
+
+            // '제어하기' 버튼 클릭 시 이벤트 핸들러 등록
+            controlButton.addEventListener('click', async () => {
+                
+            });
+
+        } catch (error) {
+            console.error('Error controlling device:', error);
+        }
+    }
+    // 디바이스를 제어하는 함수
+    async function fetchDeviceInfo(deviceId) {
+        try {
+            // API를 호출하여 디바이스 제어 요청
+            const response = await fetch(`https://port-0-smartthings-webhook-2rrqq2blmqxv7cr.sel5.cloudtype.app/control/device-info?deviceId=${deviceId}`, {
+                method: 'GET',
+            });
+
+            const data = await response.json();
+            console.log(data); // 성공한 경우에 대한 응답을 콘솔에 출력
+            commandList.innerHTML = '';
+
+            // 기능 목록을 가져와서 추가
+            data.forEach(functionName => {
+                const functionItem = document.createElement('div');
+                functionItem.textContent = functionName.commandId;
+                functionListContainer.appendChild(functionItem);
+                Object.keys(functionItem.command).forEach(commandName => {
+                    const commandItem = document.createElement('div');
+                    commandItem.textContent = `제어 : ${commandName}`;
+                })
+            });
+
         } catch (error) {
             console.error('Error controlling device:', error);
         }
@@ -61,7 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
     async function controlDevice(deviceId) {
         try {
             // API를 호출하여 디바이스 제어 요청
-            const response = await fetch(`https://port-0-smartthings-webhook-2rrqq2blmqxv7cr.sel5.cloudtype.app/control/devices/${deviceId}/toggle`, {
+            const response = await fetch(`https://port-0-smartthings-webhook-2rrqq2blmqxv7cr.sel5.cloudtype.app/control/devices/${deviceId}/command`, {
                 method: 'POST',
             });
 
