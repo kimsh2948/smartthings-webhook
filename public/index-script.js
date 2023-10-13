@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const deviceStatus = document.getElementById('device-status');
     const controlButton = document.getElementById('control-button');
     const functionListContainer = document.getElementById('function-list');
-    const commandList = document.getElementById('command-list');
 
     // API에서 디바이스 목록을 가져오는 함수
     async function fetchDeviceList() {
@@ -78,7 +77,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const data = await response.json();
             console.log(data); // 성공한 경우에 대한 응답을 콘솔에 출력
-            commandList.innerHTML = '';
 
             // 기능 목록을 가져와서 추가
             for (const functionName of data) {
@@ -89,6 +87,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     const commandItem = document.createElement('div');
                     commandItem.textContent = `제어 : ${commandName}`;
                     functionItem.appendChild(commandItem);
+                    commandItem.addEventListener('click', async () => {
+                        await controlDevice(deviceId, commandValue.name, commandValue.arguments, functionName.capVersion);
+                    });
                 }
                 functionListContainer.appendChild(functionItem);
             }
@@ -99,11 +100,21 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // 디바이스를 제어하는 함수
-    async function controlDevice(deviceId) {
+    async function controlDevice(deviceId, deviceCapId, command, arguments) {
         try {
+            const postData = {
+                deviceId: deviceId,
+                deviceCapId: deviceCapId,
+                command: command,
+                arguments: arguments
+            };
             // API를 호출하여 디바이스 제어 요청
             const response = await fetch(`https://port-0-smartthings-webhook-2rrqq2blmqxv7cr.sel5.cloudtype.app/control/devices/${deviceId}/command`, {
                 method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(postData)
             });
 
             const data = await response.json();
