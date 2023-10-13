@@ -69,27 +69,23 @@ router.get('/device-info', (req, res) => {
             'Authorization': `Bearer ${accessToken}`
         }
     })
-    .then(response => {
+    .then(async (response) => {
         console.log(response.data);
         const capabilities = response.data.components[0].capabilities;
-        functions = [];
-        capabilities.forEach(async (cap) => {
-            await axios.get(`/capabilities/${cap.id}/${cap.version}`, {
+        const functions = await Promise.all(capabilities.map(async (cap) => {
+            const response = await axios.get(`/capabilities/${cap.id}/${cap.version}`, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${accessToken}`
                 }
             })
-            .then(response => {
-                console.log(response.data);
-                const commands = {
-                    commandId: response.data.id,
-                    command: response.data.commands
-                }
-                functions.push(commands);
-                console.log(functions);
-            })
-        });
+
+            return {
+                commandId: response.data.id,
+                command: response.data.commands
+            };
+        })); 
+        console.log(functions);
         res.send(functions);
     })
     .catch(err => {
