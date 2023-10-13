@@ -81,9 +81,10 @@ document.addEventListener("DOMContentLoaded", () => {
             commandList.innerHTML = '';
 
             // 기능 목록을 가져와서 추가
-            for (const functionItem of data) {
+            for (const functionName of data) {
                 const functionItem = document.createElement('div');
                 functionItem.textContent = functionName.commandId;
+                
                 for (const [commandName, commandValue] of Object.entries(functionName.command)) {
                     const commandItem = document.createElement('div');
                     commandItem.textContent = `제어 : ${commandName}`;
