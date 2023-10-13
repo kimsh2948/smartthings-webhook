@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const functionItem = document.createElement('div');
                 functionItem.textContent = functionName.commandId;
                 functionListContainer.appendChild(functionItem);
-                Object.keys(functionItem.command).forEach(commandName => {
+                Object.keys(functionName.command).forEach(commandName => {
                     const commandItem = document.createElement('div');
                     commandItem.textContent = `제어 : ${commandName}`;
                 })
