@@ -90,6 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     commandItem.textContent = `제어 : ${commandName}`;
                     commandList.appendChild(commandItem);
                 })
+                functionItem.appendChild(commandList);
             });
 
         } catch (error) {
