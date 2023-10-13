@@ -84,12 +84,11 @@ document.addEventListener("DOMContentLoaded", () => {
             for (const functionName of data) {
                 const functionItem = document.createElement('div');
                 functionItem.textContent = functionName.commandId;
-                
+
                 for (const [commandName, commandValue] of Object.entries(functionName.command)) {
                     const commandItem = document.createElement('div');
                     commandItem.textContent = `제어 : ${commandName}`;
-                    commandList.appendChild(commandItem);
-                    functionItem.appendChild(commandList);
+                    functionItem.appendChild(commandItem);
                 }
                 functionListContainer.appendChild(functionItem);
             }
