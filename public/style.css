@@ -30,6 +30,10 @@ body {
     width: 60%;
 }
 
+.device-details {
+    align-items: center;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
