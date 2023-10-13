@@ -82,8 +82,7 @@ router.get('/device-info', (req, res) => {
 
             return {
                 commandId: response.data.id,
-                command: response.data.commands,
-                capVersion: cap.version
+                command: response.data.commands
             };
         })); 
         console.log(functions);
