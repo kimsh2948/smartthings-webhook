@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // '제어하기' 버튼 클릭 시 이벤트 핸들러 등록
             controlButton.addEventListener('click', async () => {
-                fetchDeviceInfo(deviceId);
+                await fetchDeviceInfo(deviceId);
             });
 
         } catch (error) {
@@ -88,6 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 Object.keys(functionName.command).forEach(commandName => {
                     const commandItem = document.createElement('div');
                     commandItem.textContent = `제어 : ${commandName}`;
+                    commandList.appendChild(commandItem);
                 })
             });
 
