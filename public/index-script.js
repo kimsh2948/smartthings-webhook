@@ -84,13 +84,13 @@ document.addEventListener("DOMContentLoaded", () => {
             data.forEach(functionName => {
                 const functionItem = document.createElement('div');
                 functionItem.textContent = functionName.commandId;
-                functionListContainer.appendChild(functionItem);
                 Object.keys(functionName.command).forEach(commandName => {
                     const commandItem = document.createElement('div');
                     commandItem.textContent = `제어 : ${commandName}`;
                     commandList.appendChild(commandItem);
                 })
                 functionItem.appendChild(commandList);
+                functionListContainer.appendChild(functionItem);
             });
 
         } catch (error) {
