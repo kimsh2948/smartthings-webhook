@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // 가져온 디바이스 목록을 HTML에 추가
             data.forEach(device => {
-                const deviceItem = document.createElement('div');
+                const deviceItem = document.createElement('p');
                 deviceItem.className = 'device-item';
                 deviceItem.textContent = device.name;
                 deviceListContainer.appendChild(deviceItem);
