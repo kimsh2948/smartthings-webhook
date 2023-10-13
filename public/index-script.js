@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     commandItem.textContent = `제어 : ${commandName}`;
                     functionItem.appendChild(commandItem);
                     commandItem.addEventListener('click', async () => {
-                        await controlDevice(deviceId, commandName, commandValue.name, commandValue.arguments);
+                        await controlDevice(deviceId, functionName.commandId, commandValue.name, commandValue.arguments);
                     });
                 }
                 functionListContainer.appendChild(functionItem);
