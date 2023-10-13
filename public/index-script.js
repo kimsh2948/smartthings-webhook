@@ -81,17 +81,17 @@ document.addEventListener("DOMContentLoaded", () => {
             commandList.innerHTML = '';
 
             // 기능 목록을 가져와서 추가
-            data.forEach(functionName => {
+            for (const functionItem of data) {
                 const functionItem = document.createElement('div');
                 functionItem.textContent = functionName.commandId;
-                Object.keys(functionName.command).forEach(commandName => {
+                for (const [commandName, commandValue] of Object.entries(functionName.command)) {
                     const commandItem = document.createElement('div');
                     commandItem.textContent = `제어 : ${commandName}`;
                     commandList.appendChild(commandItem);
-                })
-                functionItem.appendChild(commandList);
+                    functionItem.appendChild(commandList);
+                }
                 functionListContainer.appendChild(functionItem);
-            });
+            }
 
         } catch (error) {
             console.error('Error controlling device:', error);
