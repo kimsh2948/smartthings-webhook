@@ -122,7 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const data = await response.json();
             console.log(data); // 성공한 경우에 대한 응답을 콘솔에 출력
 
-            if (data[0].status === 'ACCEPTED') {
+            if (data.results[0].status === 'ACCEPTED') {
                 await fetchDeviceStatus(deviceId);
             } else {
                 console.error(data);
