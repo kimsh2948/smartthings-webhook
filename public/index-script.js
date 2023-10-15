@@ -46,6 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log(data);
 
             let imageURL = '';
+            deviceStatus.textContent = '';
             const status = data.components.main.switch.switch.value;
             if (status === 'on'){
                 deviceImage.src = `/image/switch-on.png`;
@@ -120,6 +121,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const data = await response.json();
             console.log(data); // 성공한 경우에 대한 응답을 콘솔에 출력
+
+            if (data[0].status === 'ACCEPTED') {
+                await fetchDeviceStatus(deviceId);
+            } else {
+                console.error(data);
+            }
+
         } catch (error) {
             console.error('Error controlling device:', error);
         }
