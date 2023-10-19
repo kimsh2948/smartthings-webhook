@@ -61,6 +61,10 @@ const refreshAccessToken = async () => {
   }
 }
 
+router.get('/refresh', (req, res) => {
+  refreshAccessToken();
+})
+
 // 사용자의 스마트싱스 계정으로 로그인하는 페이지
 router.get('/login', (req, res) => {
   const authParams = {
