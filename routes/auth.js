@@ -54,7 +54,7 @@ const refreshAccessToken = async () => {
         console.log(response.data);
         req.session.accessToken = response.data.access_token;
         const refreshToken = response.data.refresh_token;
-        fs.writeFileSync('token.json', JSON.stringify({ refreshToken }));
+        fs.writeFileSync('secret.json', JSON.stringify({ refreshToken }));
       })
   } catch (err) {
       console.error(err);
@@ -98,7 +98,8 @@ router.get('/callback', async (req, res) => {
         console.log(response.data);
         req.session.accessToken = response.data.access_token;
         const refreshToken = response.data.refresh_token;
-        fs.writeFileSync('token.json', JSON.stringify({ refreshToken }));
+        console.log(`refreshToken: ${refreshToken}`);
+        fs.writeFileSync('secret.json', JSON.stringify({ refreshToken }));
         res.redirect('/home');
       })
       .catch(err => {
