@@ -44,7 +44,7 @@ const refreshAccessToken = async () => {
         clientId: clientId
       };
 
-      const tokenResponse = await axios.post(tokenUrl, {
+      const tokenResponse = await axios.post(tokenUrl, new URLSearchParams(tokenParams), {
         headers: {
           'Authorization': authHeader,
           'Content-Type': 'application/x-www-form-urlencoded'
