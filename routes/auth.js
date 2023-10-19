@@ -28,12 +28,12 @@ const checkAuth = (req, res, next) => {
   if (req.session && req.session.accessToken) {
     next(); 
   } else {
-      refreshAccessToken();
+      refreshAccessToken(req, res);
       next();
   }
 }
 
-const refreshAccessToken = async () => {
+const refreshAccessToken = async (req, res) => {
   try {
       const tokenData = JSON.parse(fs.readFileSync('secret.json'));
       const { refreshToken } = tokenData;
@@ -62,7 +62,8 @@ const refreshAccessToken = async () => {
 }
 
 router.get('/refresh', (req, res) => {
-  refreshAccessToken();
+  refreshAccessToken(req, res);
+  res.send('success');
 })
 
 // 사용자의 스마트싱스 계정으로 로그인하는 페이지
