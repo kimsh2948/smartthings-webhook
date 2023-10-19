@@ -2,6 +2,7 @@ const axios = require('axios');
 const express = require('express');
 const session = require('express-session');
 const router = express.Router();
+const fs = require('fs');
 
 // // 스마트앱 정보
 // const clientId = '737638b7-2007-4550-8242-b95ea570c125';
@@ -22,6 +23,43 @@ const authorizationUrl = 'https://api.smartthings.com/oauth/authorize';
 const tokenUrl = 'https://api.smartthings.com/oauth/token';
 
 const authHeader = `Basic ${Buffer.from(`${clientId}:${clientSecret}`).toString('base64')}`;
+
+const checkAuth = (req, res, next) => {
+  if (req.session && req.session.accessToken) {
+    next(); 
+  } else {
+      refreshAccessToken();
+      next();
+  }
+}
+
+const refreshAccessToken = async () => {
+  try {
+      const tokenData = JSON.parse(fs.readFileSync('secret.json'));
+      const { refreshToken } = tokenData;
+
+      const tokenParams = {
+        grant_type: 'refresh_token',
+        refresh_token: refreshToken,
+        clientId: clientId
+      };
+
+      const tokenResponse = await axios.post(tokenUrl, {
+        headers: {
+          'Authorization': authHeader,
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      })
+      .then(response => {
+        console.log(response.data);
+        req.session.accessToken = response.data.access_token;
+        const refreshToken = response.data.refresh_token;
+        fs.writeFileSync('token.json', JSON.stringify({ refreshToken }));
+      })
+  } catch (err) {
+      console.error(err);
+  }
+}
 
 // 사용자의 스마트싱스 계정으로 로그인하는 페이지
 router.get('/login', (req, res) => {
@@ -59,6 +97,8 @@ router.get('/callback', async (req, res) => {
       .then(response => {
         console.log(response.data);
         req.session.accessToken = response.data.access_token;
+        const refreshToken = response.data.refresh_token;
+        fs.writeFileSync('token.json', JSON.stringify({ refreshToken }));
         res.redirect('/home');
       })
       .catch(err => {
@@ -70,4 +110,7 @@ router.get('/callback', async (req, res) => {
     }
 });
 
-module.exports = router;
+module.exports = {
+  router,
+  checkAuth
+};

@@ -13,8 +13,8 @@ const SmartApp = require('@smartthings/smartapp');
 const server = express();
 const PORT = 8080;
 
-const authRouter = require('./auth');
-const controlRouter = require('./control');
+const { router: authRouter, checkAuth: checkAuth } = require('./routes/auth');
+const controlRouter = require('./routes/control');
 
 server.use(cors());
 server.use(express.json());
@@ -24,6 +24,7 @@ server.use(session({
     saveUninitialized: true,
 }));
 server.use(express.static('public'));
+
 
 const smartapp = new SmartApp()
 // If you do not have it yet, omit publicKey() - i.e. PING lifecycle
@@ -44,6 +45,8 @@ const smartapp = new SmartApp()
     });
 
 server.use('/oauth', authRouter);
+
+controlRouter.use(checkAuth);
 server.use('/control', controlRouter);
 
 server.get('/', (req, res, next) => {
