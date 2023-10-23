@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
     async function fetchDeviceStatus(deviceId) {
         try {
             // API를 호출하여 디바이스 제어 요청
-            const response = await fetch(`https://smartthings.ami-konai.com/device/status?${deviceId}`, {
+            const response = await fetch(`https://smartthings.ami-konai.com/device/status?device_id=${deviceId}`, {
                 method: 'GET',
             });
 
@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
     async function fetchDeviceInfo(deviceId) {
         try {
             // API를 호출하여 디바이스 제어 요청
-            const response = await fetch(`https://smartthings.ami-konai.com/device/command-info?${deviceId}`, {
+            const response = await fetch(`https://smartthings.ami-konai.com/device/command-info?device_id=${deviceId}`, {
                 method: 'GET',
             });
 
