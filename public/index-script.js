@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             const data = await response.json();
+            console.log(data);
 
             // 가져온 디바이스 목록을 HTML에 추가
             data.forEach(device => {
