@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // API에서 디바이스 목록을 가져오는 함수
     async function fetchDeviceList() {
         try {
-            const response = await fetch('https://port-0-smartthings-webhook-2rrqq2blmqxv7cr.sel5.cloudtype.app/control/devices', {
+            const response = await fetch('https://smartthings.ami-konai.com/devices', {
                 method: 'GET',
             });
 
@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
     async function fetchDeviceStatus(deviceId) {
         try {
             // API를 호출하여 디바이스 제어 요청
-            const response = await fetch(`https://port-0-smartthings-webhook-2rrqq2blmqxv7cr.sel5.cloudtype.app/control/device-status?deviceId=${deviceId}`, {
+            const response = await fetch(`https://smartthings.ami-konai.com/device/status?${deviceId}`, {
                 method: 'GET',
             });
 
@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
     async function fetchDeviceInfo(deviceId) {
         try {
             // API를 호출하여 디바이스 제어 요청
-            const response = await fetch(`https://port-0-smartthings-webhook-2rrqq2blmqxv7cr.sel5.cloudtype.app/control/device-info?deviceId=${deviceId}`, {
+            const response = await fetch(`https://smartthings.ami-konai.com/device/command-info?${deviceId}`, {
                 method: 'GET',
             });
 
@@ -111,7 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 arguments: arguments
             };
             // API를 호출하여 디바이스 제어 요청
-            const response = await fetch(`https://port-0-smartthings-webhook-2rrqq2blmqxv7cr.sel5.cloudtype.app/control/device-control?deviceId=${deviceId}`, {
+            const response = await fetch(`https://smartthings.ami-konai.com/device/control`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

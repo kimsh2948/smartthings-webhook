@@ -78,43 +78,96 @@ router.get('/login', (req, res) => {
   res.redirect(authUrl);
 });
 
-// 스마트싱스에서 리디렉션하고 인증 코드를 수신하는 콜백 핸들러
+// aws bridge 백엔드로 인증코드 전송
 router.get('/callback', async (req, res) => {
-    console.log(req.query);
-    const code = req.query.code;
+  console.log(req.query);
+  const code = req.query.code;
 
-    //인증 코드를 사용하여 액세스 토큰을 요청
-    const tokenParams = {
-      grant_type: 'authorization_code',
-      client_id: clientId,
-      redirect_uri: redirectUri,
-      code: code
-    };
-
-    try {
-      const tokenResponse = await axios.post(tokenUrl, new URLSearchParams(tokenParams), {
-        headers: {
-          'Authorization': authHeader,
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
-
-      })
-      .then(response => {
-        console.log(response.data);
-        req.session.accessToken = response.data.access_token;
-        const refreshToken = response.data.refresh_token;
-        console.log(`refreshToken: ${refreshToken}`);
-        fs.writeFileSync('secret.json', JSON.stringify({ refreshToken }));
-        res.redirect('/home');
-      })
-      .catch(err => {
-        console.log(err);
-      })
-    } catch (error) {
-      console.error('Error getting access token:', error);
-      res.status(500).send('Error getting access token');
+  await axios.get('https://smartthings.ami-konai.com/oauth/code', {
+    headers: {
+      'Content-Type': 'application/json'
     }
+  })
+  .then(res => {
+    console.log(res.data);
+    res.redirect('/home');
+  })
+  .catch(err => {
+    console.error(err);
+  })
+
+  //인증 코드를 사용하여 액세스 토큰을 요청
+  // const tokenParams = {
+  //   grant_type: 'authorization_code',
+  //   client_id: clientId,
+  //   redirect_uri: redirectUri,
+  //   code: code
+  // };
+
+  // try {
+  //   const tokenResponse = await axios.post(tokenUrl, new URLSearchParams(tokenParams), {
+  //     headers: {
+  //       'Authorization': authHeader,
+  //       'Content-Type': 'application/x-www-form-urlencoded'
+  //     }
+
+  //   })
+  //   .then(response => {
+  //     console.log(response.data);
+  //     req.session.accessToken = response.data.access_token;
+  //     const refreshToken = response.data.refresh_token;
+  //     console.log(`refreshToken: ${refreshToken}`);
+  //     fs.writeFileSync('secret.json', JSON.stringify({ refreshToken }));
+  //     res.redirect('/home');
+  //   })
+  //   .catch(err => {
+  //     console.log(err);
+  //   })
+  // } catch (error) {
+  //   console.error('Error getting access token:', error);
+  //   res.status(500).send('Error getting access token');
+  // }
 });
+
+
+
+// // 스마트싱스에서 리디렉션하고 인증 코드를 수신하는 콜백 핸들러
+// router.get('/callback', async (req, res) => {
+//     console.log(req.query);
+//     const code = req.query.code;
+
+//     //인증 코드를 사용하여 액세스 토큰을 요청
+//     const tokenParams = {
+//       grant_type: 'authorization_code',
+//       client_id: clientId,
+//       redirect_uri: redirectUri,
+//       code: code
+//     };
+
+//     try {
+//       const tokenResponse = await axios.post(tokenUrl, new URLSearchParams(tokenParams), {
+//         headers: {
+//           'Authorization': authHeader,
+//           'Content-Type': 'application/x-www-form-urlencoded'
+//         }
+
+//       })
+//       .then(response => {
+//         console.log(response.data);
+//         req.session.accessToken = response.data.access_token;
+//         const refreshToken = response.data.refresh_token;
+//         console.log(`refreshToken: ${refreshToken}`);
+//         fs.writeFileSync('secret.json', JSON.stringify({ refreshToken }));
+//         res.redirect('/home');
+//       })
+//       .catch(err => {
+//         console.log(err);
+//       })
+//     } catch (error) {
+//       console.error('Error getting access token:', error);
+//       res.status(500).send('Error getting access token');
+//     }
+// });
 
 module.exports = {
   router,
