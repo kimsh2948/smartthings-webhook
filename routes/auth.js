@@ -12,9 +12,13 @@ const fs = require('fs');
 // const clientId = '0620ce9a-fe0b-4922-84b3-a0f2e1a9225a';
 // const clientSecret = '5738a2fa-a3e9-4531-8aa9-4615fa5db637';
 
-// new cli id
-const clientId = 'fa7e64cd-f02d-4c4f-882d-9fe9e9d1f4cf';
-const clientSecret = '34ccaf7d-c11f-4595-bb82-0d60abad5a7c';
+// // new cli id
+// const clientId = 'fa7e64cd-f02d-4c4f-882d-9fe9e9d1f4cf';
+// const clientSecret = '34ccaf7d-c11f-4595-bb82-0d60abad5a7c';
+
+//main client id
+const client_id = '7269e2f5-eb71-45b9-90ea-1d89041cc3bd'
+const client_secret = '5e2f70c0-3120-48ef-8958-b3ef31878e6f'
 
 const redirectUri = 'https://port-0-smartthings-webhook-2rrqq2blmqxv7cr.sel5.cloudtype.app/oauth/callback'; // 콜백 URL
 
