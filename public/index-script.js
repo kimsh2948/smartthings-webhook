@@ -106,8 +106,8 @@ document.addEventListener("DOMContentLoaded", () => {
     async function controlDevice(deviceId, deviceCapId, command, arguments) {
         try {
             const postData = {
-                deviceId: deviceId,
-                deviceCapId: deviceCapId,
+                device_id: deviceId,
+                device_cap_id: deviceCapId,
                 command: command,
                 arguments: arguments
             };
