@@ -17,8 +17,8 @@ const fs = require('fs');
 // const clientSecret = '34ccaf7d-c11f-4595-bb82-0d60abad5a7c';
 
 //main client id
-const client_id = '7269e2f5-eb71-45b9-90ea-1d89041cc3bd'
-const client_secret = '5e2f70c0-3120-48ef-8958-b3ef31878e6f'
+const clientId = '7269e2f5-eb71-45b9-90ea-1d89041cc3bd'
+const clientSecret = '5e2f70c0-3120-48ef-8958-b3ef31878e6f'
 
 const redirectUri = 'https://port-0-smartthings-webhook-2rrqq2blmqxv7cr.sel5.cloudtype.app/oauth/callback'; // 콜백 URL
 
