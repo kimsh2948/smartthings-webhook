@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     commandItem.textContent = commandName;
                     functionItem.appendChild(commandItem);
                     commandItem.addEventListener('click', async () => {
-                        await controlDevice(deviceId, functionName.commandId, commandValue.name, commandValue.arguments);
+                        await controlDevice(deviceId, functionName.command_id, commandValue.name, commandValue.arguments);
                     });
                 }
                 functionListContainer.appendChild(functionItem);
@@ -111,6 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 command: command,
                 arguments: arguments
             };
+            console.log(postData);
             // API를 호출하여 디바이스 제어 요청
             const response = await fetch(`https://smartthings.ami-konai.com/device/control`, {
                 method: 'POST',
