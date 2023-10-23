@@ -83,7 +83,7 @@ router.get('/callback', async (req, res) => {
   console.log(req.query);
   const code = req.query.code;
 
-  await axios.get('https://smartthings.ami-konai.com/oauth/code', {
+  await axios.get(`https://smartthings.ami-konai.com/oauth/code?code=${code}`, {
     headers: {
       'Content-Type': 'application/json'
     }
