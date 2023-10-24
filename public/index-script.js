@@ -10,6 +10,14 @@ document.addEventListener("DOMContentLoaded", () => {
     // API에서 디바이스 목록을 가져오는 함수
     async function fetchDeviceList() {
         try {
+            const urlParams = new URL(location.href).searchParams;
+            const code = urlParams.get('code');
+
+            const tokenResponse = await fetch(`https://smartthings.ami-konai.com/oauth/code?code=${code}`, {
+                method: 'GET',
+            });
+            console.log(tokenResponse);
+
             const response = await fetch('https://smartthings.ami-konai.com/devices', {
                 method: 'GET',
             });

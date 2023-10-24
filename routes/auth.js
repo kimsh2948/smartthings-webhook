@@ -87,18 +87,24 @@ router.get('/callback', async (req, res) => {
   console.log(req.query);
   const code = req.query.code;
 
-  await axios.get(`https://smartthings.ami-konai.com/oauth/code?code=${code}`, {
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
-  .then(res => {
-    console.log(res.data);
-    res.redirect('/home');
-  })
-  .catch(err => {
-    console.error(err);
-  })
+  res.redirect(`/home?${code}`);
+
+  // await axios.get(`https://smartthings.ami-konai.com/oauth/code?code=${code}`, {
+  //   headers: {
+  //     'Content-Type': 'application/json'
+  //   }
+  // })
+  // .then(res => {
+  //   console.log(res.data);
+  //   res.redirect('/home');
+  // })
+  // .catch(err => {
+  //   console.error(err);
+  // })
+
+
+
+
 
   //인증 코드를 사용하여 액세스 토큰을 요청
   // const tokenParams = {
