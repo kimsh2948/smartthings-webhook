@@ -7,16 +7,29 @@ document.addEventListener("DOMContentLoaded", () => {
     const controlButton = document.getElementById('control-button');
     const functionListContainer = document.getElementById('function-list');
 
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
     // API에서 디바이스 목록을 가져오는 함수
     async function fetchDeviceList() {
         try {
             const urlParams = new URL(location.href).searchParams;
             const code = urlParams.get('code');
+            if (code != null) {
+                const tokenResponse = await fetch(`https://smartthings.ami-konai.com/oauth/code?code=${code}`, {
+                    method: 'GET',
+                });
+            }
 
-            const tokenResponse = await fetch(`https://smartthings.ami-konai.com/oauth/code?code=${code}`, {
-                method: 'GET',
-            });
             console.log(tokenResponse);
+
+            const sessionId = getCookie('connect.sid');
+
+            // 읽어온 세션 ID를 콘솔에 출력 (테스트용)
+            console.log('세션 ID:', sessionId);
 
             const response = await fetch('https://smartthings.ami-konai.com/devices', {
                 method: 'GET',
