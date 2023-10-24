@@ -22,9 +22,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 const tokenResponse = await fetch(`https://smartthings.ami-konai.com/oauth/code?code=${code}`, {
                     method: 'GET',
                 });
+                console.log(tokenResponse);
             }
-
-            console.log(tokenResponse);
 
             const sessionId = getCookie('connect.sid');
 
