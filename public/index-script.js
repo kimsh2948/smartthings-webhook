@@ -34,6 +34,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const response = await fetch('https://smartthings.ami-konai.com/smt/devices', {
                 method: 'GET',
             });
+            if (response.status == 401) {
+                window.location.href = `${window.location.origin}/oauth/login`;
+            }
 
             const data = await response.json();
             console.log(data);
