@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const urlParams = new URL(location.href).searchParams;
             const code = urlParams.get('code');
             if (code != null) {
-                const tokenResponse = await fetch(`https://smartthings.ami-konai.com/smt/oauth/code?code=${code}`, {
+                const tokenResponse = await fetch(`https://smartthings.ami-konai.com/smt/oauth/code/${code}`, {
                     method: 'GET',
                 });
                 console.log(tokenResponse);
