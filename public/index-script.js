@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const urlParams = new URL(location.href).searchParams;
             const code = urlParams.get('code');
             if (code != null) {
-                const tokenResponse = await fetch(`https://smartthings.ami-konai.com/oauth/code?code=${code}`, {
+                const tokenResponse = await fetch(`https://smartthings.ami-konai.com/smt/oauth/code?code=${code}`, {
                     method: 'GET',
                 });
                 console.log(tokenResponse);
@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // 읽어온 세션 ID를 콘솔에 출력 (테스트용)
             console.log('세션 ID:', sessionId);
 
-            const response = await fetch('https://smartthings.ami-konai.com/devices', {
+            const response = await fetch('https://smartthings.ami-konai.com/smt/devices', {
                 method: 'GET',
             });
 
@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
     async function fetchDeviceStatus(deviceId) {
         try {
             // API를 호출하여 디바이스 제어 요청
-            const response = await fetch(`https://smartthings.ami-konai.com/device/status?device_id=${deviceId}`, {
+            const response = await fetch(`https://smartthings.ami-konai.com/smt/device/status?device_id=${deviceId}`, {
                 method: 'GET',
             });
 
@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
     async function fetchDeviceInfo(deviceId) {
         try {
             // API를 호출하여 디바이스 제어 요청
-            const response = await fetch(`https://smartthings.ami-konai.com/device/command-info?device_id=${deviceId}`, {
+            const response = await fetch(`https://smartthings.ami-konai.com/smt/device/command-info?device_id=${deviceId}`, {
                 method: 'GET',
             });
 
@@ -134,7 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
             };
             console.log(postData);
             // API를 호출하여 디바이스 제어 요청
-            const response = await fetch(`https://smartthings.ami-konai.com/device/control`, {
+            const response = await fetch(`https://smartthings.ami-konai.com/smt/device/control`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
